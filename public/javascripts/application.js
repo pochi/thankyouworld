@@ -78,7 +78,7 @@ $(function(){
       type: 'GET',
       url: '/tweets/index?q='+countryCode,
       success: function(results) {
-        $("#tweetTemplate").tmpl(results).appendTo("#tweetsBox");
+        $("#tweetTemplate").tmpl(results).appendTo($("#tweetsBox").empty());
       },
       error: function() {
         // something are wrong...

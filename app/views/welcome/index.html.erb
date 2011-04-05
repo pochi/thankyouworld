@@ -16,6 +16,16 @@
 
   <body width="100%" height="100%">
 
+  <script id="tweetTemplate" type="text/x-jquery-tmpl">
+    <div class="tweet">
+      <b>${$data["from_user"]}</b>
+      </br>
+      <div class="tweetText">
+        ${$data["text"]}
+      </div>
+    </div>
+  </script>
+
 <table width="100%" height="100%" border="0">
   <tr id="headerTR">
     <td id="headerTD" colspan="2">

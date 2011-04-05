@@ -1,84 +1,89 @@
 $(function(){
 
-	$(window).resize(function(){
-		//$("svg").height($(window).height());
-		//$("svg").width($(window).width());
-		$("#headerTR").height(50);
-		$("#footerTR").height(20);
-		$("#mainTR").height($(window).height() - 110);
-	});
+  $(window).resize(function(){
+    //$("svg").height($(window).height());
+    //$("svg").width($(window).width());
+    $("#headerTR").height(50);
+    $("#footerTR").height(20);
+    $("#mainTR").height($(window).height() - 110);
+  });
 
-	//$("svg").height($(window).height());
-	//$("svg").width($(window).width());
-	$("#headerTR").height(50);
-	$("#footerTR").height(20);
-	$("#mainTR").height($(window).height() - 110);
-	
-	$("#country").text("ZZ");
-	
-	var selectedCn;
-	
-	var defaultColor = "#b9b9b9";
-	var hoverColor = "#ffb6c1";
-	var selectedColor = "#800000";
+  //$("svg").height($(window).height());
+  //$("svg").width($(window).width());
+  $("#headerTR").height(50);
+  $("#footerTR").height(20);
+  $("#mainTR").height($(window).height() - 110);
 
-	for(var c in countries)
-	{
-		var cd = "#" + countries[c].code2Char.toLowerCase();
-		
-		if(cd != "#jp"){
-			$(cd).hover(
-				function (event) {
-					$(this).css("fill",hoverColor);
-					/**
-					$("#xxx").append("<circle cx='0' cy='0' r='1000' style='stroke:#ff0000; stroke-width:15; fill:none'/>");
-					**/
-				},
-				function (event) {
-					if(selectedCn == $(this).attr("id")){
-						$(this).css("fill",selectedColor);
-					}else{
-						$(this).css("fill",defaultColor);
-					}
-				}
-			);// $(cd).hover
+  $("#country").text("ZZ");
 
-			$(cd).click(function (event) {
-				selectCountry($(this).attr("id"));
-			});
+  var selectedCn;
 
-		} // if(cd != "#jp")
-	} // for(var c in countries)
+  var defaultColor = "#b9b9b9";
+  var hoverColor = "#ffb6c1";
+  var selectedColor = "#800000";
 
-	$("#tweetThanksLink").click(function(event){
-		var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
-		window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
-	});
+  for(var c in countries)
+  {
+    var cd = "#" + countries[c].code2Char.toLowerCase();
 
-	$("#countryCmb").change(function(){
-		var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
-		selectCountry(selectedcountrycode);
-	});
+    if(cd != "#jp"){
+      $(cd).hover(
+        function (event) {
+          $(this).css("fill",hoverColor);
+          /**
+          $("#xxx").append("<circle cx='0' cy='0' r='1000' style='stroke:#ff0000; stroke-width:15; fill:none'/>");
+          **/
+        },
+        function (event) {
+          if(selectedCn == $(this).attr("id")){
+            $(this).css("fill",selectedColor);
+          }else{
+            $(this).css("fill",defaultColor);
+          }
+        }
+      );// $(cd).hover
 
-	function selectCountry(countryCode){
+      $(cd).click(function (event) {
+        selectCountry($(this).attr("id"));
+      });
 
-		var countryname = countries[countryCode.toUpperCase()].countryNameEN;
-		$("#countryname").text("Thank you " + countryname);
+    } // if(cd != "#jp")
+  } // for(var c in countries)
 
-		var cd = "#" + countryCode;
-		$(cd).css("fill",selectedColor);
-		$("#" + selectedCn).css("fill",defaultColor);
-		selectedCn = countryCode;
+  $("#tweetThanksLink").click(function(event){
+    var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
+    window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
+  });
 
-		getTweets(countryCode);
-	}
+  $("#countryCmb").change(function(){
+    var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
+    selectCountry(selectedcountrycode);
+  });
 
-	var tweetBox = "<div class='tweet'><b>${userName}</b><br /><div class='tweetText'>${tweetText}</div></div>";
+  function selectCountry(countryCode){
 
-	function getTweets(countryCode){
-		$("#tweetsBox").empty();
-		$.template("tbt", tweetBox);
-		$.tmpl("tbt", tweetsdata).appendTo("#tweetsBox");
-	}
+    var countryname = countries[countryCode.toUpperCase()].countryNameEN;
+    $("#countryname").text("Thank you " + countryname);
+
+    var cd = "#" + countryCode;
+    $(cd).css("fill",selectedColor);
+    $("#" + selectedCn).css("fill",defaultColor);
+    selectedCn = countryCode;
+
+    getTweets(countryCode);
+  }
+
+  function getTweets(countryCode){
+    $.ajax({
+      type: 'GET',
+      url: '/tweets/index?q='+countryCode,
+      success: function(results) {
+        $("#tweetTemplate").tmpl(results).appendTo("#tweetsBox");
+      },
+      error: function() {
+        // something are wrong...
+      }
+    });
+  }
 
 });

@@ -53,7 +53,7 @@ $(function(){
   $("#tweetThanksLink").click(function(event){
     var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
     // window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
-    $("#dear").html("Dear  " + selectedcountrycode + "  ...");
+    $("#dear").html("To  " + $('#countryCmb option:selected').html() + "  ...");
     $("#tweetThanksBox").dialog("open");
   });
 

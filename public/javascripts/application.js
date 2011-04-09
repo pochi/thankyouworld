@@ -52,7 +52,17 @@ $(function(){
 
   $("#tweetThanksLink").click(function(event){
     var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
-    window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
+    // window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
+    $("#dear").html("Dear  " + selectedcountrycode + "  ...");
+    $("#tweetThanksBox").dialog("open");
+  });
+
+  $("#tweetThanksBox").dialog({
+    autoOpen: false,
+    modal: true,
+    title: "感謝のお手紙",
+    width: 400,
+    buttons: {'Thanks!': function(){alert("Thanks!")}}
   });
 
   $("#countryCmb").change(function(){

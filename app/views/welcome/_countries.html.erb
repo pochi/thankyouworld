@@ -5,7 +5,10 @@
         <%= render "tweet_list" -%>
         <div id="tweetThanksBox">
           <div id="dear"></div>
-          <%= text_area_tag 'tweet_conent', nil, :size => "37" -%>
+          <% form_tag "/tweets" do %>
+            <%= text_area_tag 'tweet_content', nil, :size => "37" -%>
+            <%= submit_tag "Thanks!" %>
+          <% end %>
         </div>
       <% else %>
         <%= link_to "tweet to the world", "/auth/twitter" %>

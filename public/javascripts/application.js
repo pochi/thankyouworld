@@ -68,7 +68,7 @@ $(function(){
       $.ajax({
         type: 'POST',
         url: '/tweets',
-        data: 'content=pochipochi',
+        data: 'content=' + $("#tweet_content").val(),
         success: function(results) {
           alert("pochipochi");
         },

@@ -15,4 +15,14 @@ class ApplicationController < ActionController::Base
   def consumer
     @consumer ||= ::OAuth::Consumer.new(ENV["TWITTER_CONSUMER_KEY_FOR_THANKYOU"], ENV["TWITTER_CONSUMER_SECRET_FOR_THANKYOU"], :site => "http://twitter.com")
   end
+
+  def twitter
+    ::Twitter.configure do |config|
+      config.consumer_key = ENV["TWITTER_CONSUMER_KEY_FOR_THANKYOU"]
+      config.consumer_secret = ENV["TWITTER_CONSUMER_SECRET_FOR_THANKYOU"]
+      config.oauth_token = current_user.oauth.access_token
+      config.oauth_token_secret = current_user.oauth.access_token_secret
+    end
+    @twitter ||= ::Twitter::Client.new
+  end
 end

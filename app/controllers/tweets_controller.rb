@@ -5,11 +5,7 @@ class TweetsController < ApplicationController
   end
 
   def create
-
-    render :json => { success: true }.to_json
-  end
-
-  private
-  def client
+    twitter.update(params[:tweet_content])
+    redirect_to root_url, :notice => "Thanks to the world!"
   end
 end

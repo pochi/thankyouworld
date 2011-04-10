@@ -138,6 +138,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  oauth
   omniauth
   pg
   rails (= 3.0.5)

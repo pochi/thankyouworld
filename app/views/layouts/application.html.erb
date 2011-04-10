@@ -13,14 +13,6 @@
   <%= content_tag :div, msg, :id => "flash#{name}" %>
 <% end -%>
 
-<div class="user-navi">
-  <% if current_user -%>
-    Logged in as <%= current_user.screen_name %>
-  <% else -%>
-    <%= link_to 'Log in', '/auth/twitter' %>
-  <% end -%>
-</div>
-
 <%= yield %>
 
 </body>

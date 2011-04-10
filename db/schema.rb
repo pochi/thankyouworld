@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110410134025) do
+ActiveRecord::Schema.define(:version => 20110410160004) do
+
+  create_table "oauths", :force => true do |t|
+    t.string   "access_token",        :null => false
+    t.string   "access_token_secret", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",             :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "provider",    :null => false

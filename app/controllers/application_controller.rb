@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   def login_required
     redirect_to '/auth/twitter' unless current_user
   end
+
+  def consumer
+    @consumer ||= ::OAuth::Consumer.new(ENV["TWITTER_CONSUMER_KEY_FOR_THANKYOU"], ENV["TWITTER_CONSUMER_SECRET_FOR_THANKYOU"], :site => "http://twitter.com")
+  end
 end

@@ -65,12 +65,17 @@ $(function(){
     title: "感謝のお手紙",
     width: 400,
     buttons: {'Thanks!': function() {
+      var csrfToken = $('meta[name="csrf-token"]').attr('content');
+      var data = {
+        "_method": "post",
+        "authenticity_token": csrfToken,
+        "content": $("#tweet_content").val() };
       $.ajax({
         type: 'POST',
         url: '/tweets',
-        data: 'content=' + $("#tweet_content").val(),
+        data: data,
         success: function(results) {
-          alert("pochipochi");
+          $("#tweetThanksBox").dialog("close");
         },
         error: function() {
           // something are wrong...

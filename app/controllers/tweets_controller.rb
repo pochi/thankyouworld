@@ -5,7 +5,7 @@ class TweetsController < ApplicationController
   end
 
   def create
-    twitter.update(params[:tweet_content])
+    twitter.update(params[:content])
     redirect_to root_url, :notice => "Thanks to the world!"
   end
 end

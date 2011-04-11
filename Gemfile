@@ -18,4 +18,5 @@ gem 'pg'
 # gem 'aws-s3', :require => 'aws/s3'
 
 gem 'twitter'
+gem 'oauth'
 gem 'omniauth'

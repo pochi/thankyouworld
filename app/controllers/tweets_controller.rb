@@ -3,4 +3,9 @@ class TweetsController < ApplicationController
     json = ::Twitter::Search.new.hashtag("ThankyouWorld").hashtag(params[:q]).fetch
     render :json => json
   end
+
+  def create
+    twitter.update(params[:content])
+    redirect_to root_url, :notice => "Thanks to the world!"
+  end
 end

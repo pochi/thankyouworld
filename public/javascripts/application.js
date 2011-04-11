@@ -51,8 +51,37 @@ $(function(){
   } // for(var c in countries)
 
   $("#tweetThanksLink").click(function(event){
+/*
     var selectedcountrycode = $('#countryCmb option:selected').val().toLowerCase();
-    window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
+    // window.open("http://twitter.com/?status=%23thankyouworld %23" + selectedcountrycode, "_blank");
+*/
+    $("#dear").html("To  " + $('#countryCmb option:selected').html() + "  ...");
+    $("#tweetThanksBox").dialog("open");
+  });
+
+  $("#tweetThanksBox").dialog({
+    autoOpen: false,
+    modal: true,
+    title: "感謝のお手紙",
+    width: 400,
+    buttons: {'Thanks!': function() {
+      var csrfToken = $('meta[name="csrf-token"]').attr('content');
+      var data = {
+        "_method": "post",
+        "authenticity_token": csrfToken,
+        "content": $("#tweet_content").val() };
+      $.ajax({
+        type: 'POST',
+        url: '/tweets',
+        data: data,
+        success: function(results) {
+          $("#tweetThanksBox").dialog("close");
+        },
+        error: function() {
+          // something are wrong...
+        }
+      });
+    }}
   });
 
   $("#countryCmb").change(function(){
